@@ -1,0 +1,3 @@
+A very small example for a currency converter using a free to use rate API. 
+
+Right now only supports Yen, US dollars and Euros.
