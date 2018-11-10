@@ -1,0 +1,28 @@
+.converter_div {
+    height: 250px;
+    width: 750px;
+    margin: auto;
+}
+
+.form-group-cur {
+    position: relative;
+    left: 60;
+    width: 250;
+}
+
+.form-group-select-cur {
+    position: relative;
+    right: 60;
+    width: 100;
+}
+
+.convert-button {
+    float: right;
+    width: 100;
+}
+
+.result {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}

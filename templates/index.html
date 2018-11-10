@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<div class="converter_div">
+    <div class="panel panel-default">
+        <div class="panel-heading">Currency Converter</div>
+        <div class="panel-body">
+            <div>
+                <form class="form-inline" id="convert-form">
+                    <div class="form-group form-group-cur col-md-6">
+                        <label>FROM</label>
+                        <select class="form-control" id="select-currency-1">
+                            <option selected="selected">EUR</option>
+                            <option>USD</option>
+                            <option>JPY</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-select-cur col-md-3">
+                        <input type="number" class="form-control" id="input-currency-1" placeholder="Amount">
+                    </div>
+                    <div class="form-group form-group-cur col-md-3">
+                        <label>TO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                        <select class="form-control" id="select-currency-2">
+                            <option>EUR</option>
+                            <option selected="selected">USD</option>
+                            <option>JPY</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 convert-button">
+                        <button type="submit" class="btn btn-primary mb-2">Convert</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12 result" id="result-id">
+                <p><font size="6"></font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('#convert-form').submit(function(event) {
+        var formData = {
+            'from'              :  $('#select-currency-1').find(":selected").text(),
+            'amount'             : $('input[id=input-currency-1]').val(),
+            'to'    : $('#select-currency-2').find(":selected").text()
+        };
+
+
+        $.ajax({
+            type        : 'POST',
+            url         : '/convert_currency',
+            data        : formData,
+            dataType    : 'json',
+            encode          : true,
+            success     : handleResponseConvert
+        })
+
+        event.preventDefault();
+    });
+
+    function handleResponseConvert(response){
+        var div = document.createElement('div');
+
+        div.innerHTML = '<p><font size="6">' + response['result'] + '</font></p>';
+
+        var myDiv = document.getElementById('result-id')
+        // You can stack results if you remove the following line and it looks pretty neat as well, kind of like
+        // a small history
+        myDiv.innerHTML = '';
+        myDiv.appendChild(div);
+    }
+
+});
+
+
+
+</script>
+
+</html>
